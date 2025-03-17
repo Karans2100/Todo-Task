@@ -19,7 +19,8 @@ try:
     conn = mysql.connector.connect(
     user=os.getenv("DB_USER"),
     password=os.getenv("DB_PASSWORD"),
-    database="todo"
+    database=os.getenv("DB_NAME"),
+    host=os.getenv("DB_HOST")
     )
 
     print ("DB Connected")
@@ -235,11 +236,11 @@ def delete_task(id):
 # Log in for google
 @app.route("/login/google")
 def google_login():
-    return oauth.TodoApp.authorize_redirect(redirect_uri=f"http://localhost:{os.getenv("APP_PORT")}/callback", _external=True)
+    return oauth.todo.authorize_redirect(redirect_uri=f"http://localhost:{os.getenv("APP_PORT")}/callback", _external=True)
 
 @app.route("/callback")
 def callback():
-    oauth_token = oauth.TodoApp.authorize_access_token()
+    oauth_token = oauth.todoc.authorize_access_token()
     # print(token)
 
     public_key = None
