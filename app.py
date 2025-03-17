@@ -75,7 +75,7 @@ appConf = {
 CERTS_URL = "https://www.googleapis.com/oauth2/v3/certs"
 
 oauth = OAuth(app)
-oauth.register("TodoApp", client_id=appConf.get("CLIENT_ID"), client_secret=appConf.get("CLIENT_SECRET"), server_metadata_url=appConf.get("META_URL"), client_kwargs={
+oauth.register("todoApp", client_id=appConf.get("CLIENT_ID"), client_secret=appConf.get("CLIENT_SECRET"), server_metadata_url=appConf.get("META_URL"), client_kwargs={
     "scope": "openid profile email"
 })
 
@@ -236,11 +236,11 @@ def delete_task(id):
 # Log in for google
 @app.route("/login/google")
 def google_login():
-    return oauth.todo.authorize_redirect(redirect_uri=f"http://localhost:{os.getenv('APP_PORT')}/callback", _external=True)
+    return oauth.todoApp.authorize_redirect(redirect_uri=f"http://localhost:{os.getenv('APP_PORT')}/callback", _external=True)
 
 @app.route("/callback")
 def callback():
-    oauth_token = oauth.todoc.authorize_access_token()
+    oauth_token = oauth.todoApp.authorize_access_token()
     # print(token)
 
     public_key = None
@@ -280,4 +280,4 @@ def callback():
     
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
