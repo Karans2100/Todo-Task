@@ -17,8 +17,8 @@ def decodeJWT():
 # DB Connection
 try:
     conn = mysql.connector.connect(
-    user="root",
-    password="123456",
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
     database="todo"
     )
 
