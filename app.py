@@ -236,7 +236,7 @@ def delete_task(id):
 # Log in for google
 @app.route("/login/google")
 def google_login():
-    return oauth.todoApp.authorize_redirect(redirect_uri=f"{os.getenv('BASE_URL')}:/callback", _external=True)
+    return oauth.todoApp.authorize_redirect(redirect_uri=f"{os.getenv('BASE_URL')}/callback", _external=True)
     #{os.getenv('APP_PORT')}
 
 @app.route("/callback")
