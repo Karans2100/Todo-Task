@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>To-Do App</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 400px;
+                margin: 50px auto;
+                text-align: center;
+            }
+            ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            li {
+                background: #f4f4f4;
+                margin: 5px 0;
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+            }
+            button {
+                background: red;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>To-Do List</h2>
+        <form method="post" action="/api/task">
+            <input type="text" id="taskInput" name="task" placeholder="Add a new task" />
+            <button type="submit">Add Task</button>
+        </form>
+        <ul id="taskList"></ul>
+
+        <h2>Log Out</h2>
+        <script src="{{ url_for('static', filename='todo.js') }}"></script>
+    </body>
+</html>

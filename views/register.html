@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Register</title>
+    </head>
+    <body>
+        <h1>Register</h1>
+
+        <form>
+            <label>Enter Your Name: </label>
+            <input type="text" placeholder="John Doe" name="name" required />
+
+            <label>Enter Your Email: </label>
+            <input type="email" placeholder="john@doe.com" name="email" required />
+
+            <label>Enter Your Password: </label>
+            <input type="password" name="password" required />
+
+            <button>Register</button>
+        </form>
+
+        <a href="/login">Already a User? Login</a>
+
+        <script>
+            document.querySelector("button").addEventListener("click", (event) => {
+                event.preventDefault();
+                const name = document.querySelector("input[name='name']").value;
+                const email = document.querySelector("input[name='email']").value;
+                const password = document.querySelector("input[name='password']").value;
+                const formData = new URLSearchParams();
+                formData.append("name", name);
+                formData.append("email", email);
+                formData.append("password", password);
+
+                fetch("/api/register", { method: "POST", body: formData })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        if (data.code === 409) {
+                            const h2 = document.createElement("h2");
+                            h2.innerHTML = data.status;
+                            document.body.appendChild(h2);
+                        } else {
+                            window.location.replace("/");
+                        }
+                    });
+            });
+        </script>
+    </body>
+</html>

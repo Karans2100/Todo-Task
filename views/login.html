@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Log In</title>
+    </head>
+    <body>
+        <h1>Log In</h1>
+
+        <form>
+            <label>Enter Your Email: </label>
+            <input type="email" placeholder="john@doe.com" name="email" required />
+
+            <label>Enter Your Password: </label>
+            <input type="password" name="password" required />
+
+            <button>Log In</button>
+        </form>
+
+        <button onclick="window.location.href='{{url_for('google_login')}}'">
+            Log In with Google
+        </button>
+
+        <a href="/register">New User? Register</a>
+
+        <script>
+            document.querySelector("button").addEventListener("click", (event) => {
+                event.preventDefault();
+                const email = document.querySelector("input[name='email']").value;
+                const password = document.querySelector("input[name='password']").value;
+                const formData = new URLSearchParams();
+                formData.append("email", email);
+                formData.append("password", password);
+
+                fetch("/api/login", { method: "POST", body: formData })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        if (data.code === 409) {
+                            const h2 = document.createElement("h2");
+                            h2.innerHTML = data.status;
+                            document.body.appendChild(h2);
+                        } else {
+                            window.location.replace("/");
+                        }
+                    });
+            });
+        </script>
+    </body>
+</html>
