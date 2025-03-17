@@ -236,7 +236,7 @@ def delete_task(id):
 # Log in for google
 @app.route("/login/google")
 def google_login():
-    return oauth.todo.authorize_redirect(redirect_uri=f"http://localhost:{os.getenv('APP_PORT')}/callback", _external=True)
+    return oauth.todo.authorize_redirect(redirect_uri=f"http://0.0.0.0:{os.getenv('APP_PORT')}/callback", _external=True)
 
 @app.route("/callback")
 def callback():
@@ -280,4 +280,4 @@ def callback():
     
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
